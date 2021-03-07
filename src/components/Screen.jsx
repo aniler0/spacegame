@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import Enemy from "../utils/enemy";
 import InputHandler from "../utils/input";
 import { Player } from "../utils/player";
+import { getRandomNumber } from "../utils/util";
 import "./Screen.css";
 
 const Screen = () => {
-  const [round, setRound] = useState(0);
+  const [round, setRound] = useState(1);
 
   let canvas;
   let ctx;
@@ -14,26 +16,39 @@ const Screen = () => {
 
   useEffect(() => {
     player = new Player(GAME_WIDTH, GAME_HEIGHT);
+    const enemies = [];
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
+
     player.draw(ctx);
     new InputHandler(player);
-    let lastTime = 0;
-    let gameLoop = (timestamp) => {
-      let deltaTime = timestamp - lastTime;
-      lastTime = timestamp;
 
+    setInterval(() => {
       ctx.clearRect(0, 0, 800, 400);
-      player.update(deltaTime);
+
       player.draw(ctx);
+      player.update();
 
-      requestAnimationFrame(gameLoop);
-    };
+      const random = getRandomNumber(10, 100);
 
-    gameLoop();
+      if (enemies.length < round) {
+        enemies.push(
+          new Enemy(
+            getRandomNumber(10, GAME_WIDTH - 14), //WIDTH
 
-    setInterval(() => {}, 1000 / 30);
-  }, []);
+            Math.random() < 0.5
+              ? getRandomNumber(-random - 10, -100)
+              : getRandomNumber(-random - 200, -5) //HEIGHT
+          )
+        );
+      }
+
+      enemies.forEach((enemy) => {
+        enemy.update();
+        enemy.draw(ctx);
+      });
+    }, 1000 / 60);
+  });
 
   return (
     <div className="game__screen">

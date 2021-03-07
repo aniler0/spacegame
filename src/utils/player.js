@@ -18,19 +18,27 @@ export class Player {
         ctx.lineWidth = 0.3;
         ctx.stroke();
     }
-    update = (deltaTime) => {
-        if (!deltaTime) {
-            return;
-        }
+    update = () => {
 
         this.playerX += this.speedX;
         if (this.playerX < 14) this.playerX = 14
         if (this.playerX > 786) this.playerX = 786
 
         this.playerY += this.speedY;
+        if (this.playerY < 14) this.playerY = 14
+        if (this.playerY > 386) this.playerY = 386
 
     }
+    stopX = () => {
+        this.speedX = 0
 
+
+    }
+    stopY = () => {
+
+        this.speedY = 0
+
+    }
     moveLeft = () => {
         this.speedX = -this.maxSpeed
 

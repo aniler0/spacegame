@@ -23,6 +23,29 @@ export default class InputHandler {
             }
 
         })
+        document.addEventListener("keyup", e => {
+            switch (e.keyCode) {
+                case 37:
+                    if (player.speedX < 0)
+                        player.stopX()
+                    break;
+
+                case 38:
+                    if (player.speedY < 0)
+                        player.stopY()
+                    break;
+                case 39:
+                    if (player.speedX > 0)
+                        player.stopX()
+                    break;
+                case 40:
+                    if (player.speedY > 0)
+                        player.stopY()
+                    break;
+
+            }
+
+        })
     }
 
 }
