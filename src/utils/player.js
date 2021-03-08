@@ -55,5 +55,8 @@ export class Player {
         this.speedY = +this.maxSpeed
 
     }
+    killed = () => {
+        alert('OYUN BİTTİ')
+    }
 
 }

@@ -16,7 +16,7 @@ const Screen = () => {
 
   useEffect(() => {
     player = new Player(GAME_WIDTH, GAME_HEIGHT);
-    const enemies = [];
+    let enemies = [];
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
 
@@ -42,7 +42,7 @@ const Screen = () => {
           )
         );
       }
-
+      enemies = enemies.filter((enemy) => !enemy.dead);
       enemies.forEach((enemy) => {
         enemy.update();
         enemy.draw(ctx);

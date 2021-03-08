@@ -1,7 +1,9 @@
+import { Player } from "./player"
 import { getRandomNumber } from "./util"
 
 export default class Enemy {
     enemySpeed = 3
+    dead = false
     dirX
     dirY
     radius
@@ -11,11 +13,9 @@ export default class Enemy {
         this.dirY = enemyY
         this.radius = getRandomNumber(5, 15)
     }
-
-    remove = (enemy) => {
-        if (this.dirY > 400) {
-
-        }
+    remove = () => {
+        if (this.dirY > 414)
+            return true;
     }
 
 
@@ -30,9 +30,12 @@ export default class Enemy {
         ctx.stroke();
     }
     update = () => {
-
-
+        if (this.dead) return;
         this.dirY += this.enemySpeed
+        if (this.remove() && !this.dead) {
+            this.dead = true;
+
+        }
 
     }
 }
