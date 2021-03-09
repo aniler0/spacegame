@@ -1,13 +1,19 @@
+
+
 export class Player {
     playerX
     playerY
+    dead = false
+    score = 0
+    maxSpeed = 5;
+    speedX = 0;
+    speedY = 0;
 
     constructor(gameWidth, gameHeight) {
         this.playerX = gameWidth / 2
         this.playerY = gameHeight / 2
-        this.maxSpeed = 5;
-        this.speedX = 0;
-        this.speedY = 0;
+
+
     }
 
     draw = (ctx) => {
@@ -17,8 +23,12 @@ export class Player {
         ctx.fill();
         ctx.lineWidth = 0.3;
         ctx.stroke();
+        ctx.font = '20px Arial';
+        ctx.fillStyle = 'white'
+        ctx.fillText(`Score:${this.score}`, 20, 50)
     }
     update = () => {
+
 
         this.playerX += this.speedX;
         if (this.playerX < 14) this.playerX = 14
@@ -29,6 +39,8 @@ export class Player {
         if (this.playerY > 386) this.playerY = 386
 
     }
+
+
     stopX = () => {
         this.speedX = 0
 
@@ -55,8 +67,6 @@ export class Player {
         this.speedY = +this.maxSpeed
 
     }
-    killed = () => {
-        alert('OYUN BİTTİ')
-    }
+
 
 }
