@@ -4,8 +4,10 @@
   align-items: center;
   margin-top: 100px;
 }
-.button {
-  padding: 10px 20px 10px 20px;
+.button__start {
+  padding: 5px 20px 5px 20px;
   margin-top: 20px;
-  color: white;
+  color: rgb(0, 0, 0);
+  outline: none;
+  cursor: pointer;
 }

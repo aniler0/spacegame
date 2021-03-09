@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { SCREEN } from "../utils/const";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import Enemy from "../utils/enemy";
 import InputHandler from "../utils/input";
 import { Player } from "../utils/player";
 import { getRandomNumber } from "../utils/util";
+
 import "./Screen.css";
 
-const Screen = ({ setScreen }) => {
+const Screen = () => {
   let canvas;
   let ctx;
   let player;
-  let enemyCount = 35;
+  let enemyCount = 30;
+  let enemySpeed;
 
   const GAME_WIDTH = 800;
   const GAME_HEIGHT = 400;
@@ -28,7 +31,9 @@ const Screen = ({ setScreen }) => {
     setInterval(() => {
       ctx.clearRect(0, 0, 800, 400);
       if (player.dead) {
-        setScreen(SCREEN.GAME_OVER);
+        ctx.font = "20px Arial";
+        ctx.fillStyle = "white";
+        ctx.fillText(`You Died !`, 350, 200);
         return;
       }
       player.draw(ctx);
@@ -41,12 +46,14 @@ const Screen = ({ setScreen }) => {
         enemies.push(
           new Enemy(
             Math.random() < 0.5
-              ? getRandomNumber(random2, GAME_WIDTH - random)
-              : getRandomNumber(0, random2), //WIDTH
+              ? getRandomNumber(random2 + 100, GAME_WIDTH - random)
+              : getRandomNumber(50, random2), //WIDTH
 
             Math.random() < 0.5
               ? getRandomNumber(-random - 10, -100)
-              : getRandomNumber(-random - 200, -5) //HEIGHT
+              : getRandomNumber(-random - 200, -5),
+            //HEIGHT
+            (enemySpeed = 5)
           )
         );
       }
@@ -57,17 +64,20 @@ const Screen = ({ setScreen }) => {
         enemy.draw(ctx);
       });
     }, 1000 / 60);
-  }, []);
+  });
 
   return (
     <div className="game__screen">
-      <h1>Space Game</h1>
+      <h1>Welcome To The Hyperspace</h1>
       <canvas
         id="myCanvas"
         width="800"
         height="400"
         style={{ border: "1px solid lightgrey", backgroundColor: "black" }}
       ></canvas>
+      <Link to="/">
+        <button className="button">Play Again</button>
+      </Link>
     </div>
   );
 };

@@ -1,22 +1,18 @@
 import "./App.css";
-import MainMenu from "./components/MainMenu";
-import { SCREEN } from "./utils/const";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import GameScreen from "./components/GameScreen";
-import { useState } from "react";
+import MainMenu from "./components/MainMenu";
 
 function App() {
-  const [screen, setScreen] = useState(SCREEN.LOBBY);
-
   return (
-    <div className="app">
-      {screen == SCREEN.LOBBY ? (
-        <MainMenu setScreen={setScreen} />
-      ) : screen == SCREEN.GAME_OVER ? (
-        <h1 style={{ marginTop: "5em" }}>Öldün</h1>
-      ) : (
-        <GameScreen setScreen={setScreen} />
-      )}
-    </div>
+    <Router>
+      <div className="app">
+        <Switch>
+          <Route path="/" exact component={MainMenu} />
+          <Route path="/game" component={GameScreen} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
