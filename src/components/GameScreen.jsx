@@ -33,7 +33,7 @@ const Screen = () => {
       if (player.dead) {
         ctx.font = "20px Arial";
         ctx.fillStyle = "white";
-        ctx.fillText(`You Died !`, 350, 200);
+        ctx.fillText(`You Died! Your score: ${player.score} `, 270, 200);
         return;
       }
       player.draw(ctx);

@@ -28,7 +28,7 @@ export class Player {
         ctx.stroke();
         ctx.font = '20px Arial';
         ctx.fillStyle = 'white'
-        ctx.fillText(`Spacetime:${this.score}s`, 20, 50)
+        ctx.fillText(`Spacetime:${this.score}`, 20, 50)
     }
 
     time = () => {
